@@ -11,6 +11,14 @@ function activate_venv() {
   fi
 }
 
+function venv_name() {
+  local path
+  path=("${(@s:/:)VIRTUAL_ENV}")
+  if [[ "${path[-1]}" = "venv" ]]; then
+    printf "%s" "${path[-2]}"
+  fi
+}
+
 function enable_autoswitch_venv() {
     autoload -Uz add-zsh-hook
     disable_autoswitch_venv
