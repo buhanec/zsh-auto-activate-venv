@@ -1,13 +1,14 @@
 AUTOSWITCH_ACTIVATE="venv/bin/activate"
 
 function activate_venv() {
-  if [[ -v VIRTUAL_ENV || "${1}" = "/" || "${1}" = "${HOME}" ]]; then
+  dir="${1-${PWD}}"
+  if [[ -v VIRTUAL_ENV || "${dir}" = "/" || "${dir}" = "${HOME}" ]]; then
     return
-  elif [[ -f "${1}/${AUTOSWITCH_ACTIVATE}" ]]; then
+  elif [[ -f "${dir}/${AUTOSWITCH_ACTIVATE}" ]]; then
     # shellcheck disable=SC1090
-    source "${1}/${AUTOSWITCH_ACTIVATE}"
+    source "${dir}/${AUTOSWITCH_ACTIVATE}"
   else
-    activate_venv "$(dirname "${1}")"
+    activate_venv "$(dirname "${dir}")"
   fi
 }
 
