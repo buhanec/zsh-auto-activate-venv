@@ -4,7 +4,8 @@ function activate_venv() {
   dir="${1-${PWD}}"
   if [[ -v VIRTUAL_ENV ]] && [[ "${dir}" != "$(dirname ${VIRTUAL_ENV})"* ]]; then
     deactivate
-  elif [[ -v VIRTUAL_ENV || "${dir}" = "/" || "${dir}" = "${HOME}" ]]; then
+  fi
+  if [[ -v VIRTUAL_ENV || "${dir}" = "/" || "${dir}" = "${HOME}" ]]; then
     return
   elif [[ -f "${dir}/${AUTOSWITCH_ACTIVATE}" ]]; then
     # shellcheck disable=SC1090
